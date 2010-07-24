@@ -16,7 +16,7 @@ p#message.error{background-color:#fcb8bb;border-color:#d2001a;}
 p#message.completed{background-color:#b8fcbb;border-color:#00d21a;}
 
 ol.recent_videos{list-style:none;padding-left:10px;}
-ol.recent_videos li{height:45px;}
+ol.recent_videos li{height:85px;}
 ol.recent_videos li strong{display:block;}
 ol.recent_videos li time{font-size:0.8em;}
-img.poster{height:40px;float:left;padding-right:4px;}
+img.poster{height:80px;float:left;padding-right:4px;}

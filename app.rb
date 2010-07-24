@@ -87,6 +87,7 @@ get '/action.json' do
     user = User.new(:username => params['username'],:passhash => User.hash(params['password']),:email=>params['email'])
         
     halt(500,"New user could not be generated, please try again later") if !user.save
+    session[:autheduser] = user
     {:action => :signup,:username=>user.username,:status => :ok}
   when 'changepw'
     halt(401,{:error =>7,:message=>"Not authenticated"}.to_json) if session[:autheduser].nil?
