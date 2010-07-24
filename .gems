@@ -1,3 +1,4 @@
 sinatra
 activerecord
 haml
+uuid
