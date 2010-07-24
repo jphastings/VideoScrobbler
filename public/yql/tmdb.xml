@@ -12,8 +12,8 @@
       </inputs>
       <execute><![CDATA[
 // Peter, you rock!
-var query = 'select content from html where url="http://www.themoviedb.org/movie/' 
-          + movieid + '" and xpath=\'//h3[@id="year"]|//h2[@id="title"]/a|//[@id="leftCol"]/a/img\'';
+var query = 'select * from html where url="http://www.themoviedb.org/movie/' 
+          + movieid + '" and xpath=\'//h3[@id="year"]|//h2[@id="title"]/a|//div[@id="leftCol"]/a/img\'';
 
 var result = y.query(query).results;
 var video = <video/>;
