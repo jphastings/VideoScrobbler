@@ -3,6 +3,7 @@ form {font-size:1.5em;}
 .prehide {display:none;}
 fieldset{width:440px;margin:10px auto;border:none;}
 input{width:440px;font-size:1.5em;margin-bottom:0.75em;}
+textarea{width:440px;font-size:1.0em;margin-bottom:0.75em;}
 form div{width:440px;font-size:1.5em;margin-bottom:0.75em;}
 form div input{width:auto;}
 .container {width:480px;}
