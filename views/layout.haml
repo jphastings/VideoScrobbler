@@ -1,0 +1,22 @@
+!!! html 5
+%html
+	%head
+		%title VideoScrobbler | 
+		%link{:type=>"text/css", :rel=>"stylesheet", :href=>"/css/default.css"}
+		%script{:type=>'text/javascript',:src=>"/assets/jquery.min.js"}
+		-@javascript.each do |js|
+			%script{:type=>'text/javascript',:src=>"/assets/#{js}.js"}
+		%script{:type=>'text/javascript',:src=>"/assets/site.js"}
+	%body
+		-unless locals[:noauth]
+			#session
+				-if session[:autheduser]
+					%a{:href=>"/users/#{session[:autheduser].username}"}=session[:autheduser].username
+					|
+					%a{:href=>'/account'}account
+					|
+					%a{:href=>'/auth'}log out
+				-else
+					%a{:href=>'/auth'}log in / sign up
+		#content
+			=yield

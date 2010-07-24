@@ -1,0 +1,19 @@
+-@javascript.push 'chroma-hash','account'
+%form{:method=>'get',:action=>'/action.json',:id=>'pw'}
+	%fieldset
+		%legend Change Password
+		%input{:type=>'hidden',:name=>'action',:value=>'changepw'}
+
+		%p#message Change your password from time to time to keep your account secure.
+		
+		%label{:for=>'oldpassword'}Old Password
+		%input{:type=>'password',:name=>'oldpassword',:id=>'oldpassword'}
+		
+		%label{:for=>'password'}New Password
+		%input{:type=>'password',:name=>'password',:id=>'password'}
+
+		%label{:for=>'confirm-password'}Confirm New Password
+		%input{:type=>'password',:name=>'confirm-password',:id=>'confirm-password'}
+		
+		%input{:type=>'submit',:value=>'Change password',:id=>'submit'}
+%h2 Close account

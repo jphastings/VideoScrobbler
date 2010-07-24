@@ -1,0 +1,22 @@
+body{width:440px;font-size:0.9em;margin-bottom:0.75em;}
+form {font-size:1.5em;}
+.prehide {display:none;}
+fieldset{width:440px;margin:10px auto;border:none;}
+input{width:440px;font-size:1.5em;margin-bottom:0.75em;}
+form div{width:440px;font-size:1.5em;margin-bottom:0.75em;}
+form div input{width:auto;}
+.container {width:480px;}
+.container{padding:30px 30px;margin:100px auto 30px auto;background:#fff;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;-webkit-box-shadow:1px 0px 5px #666;-khtml-box-sizing:content-box;box-sizing:content-box;}
+pre{background-color:#eee;border:1px solid #888;padding:10px;}
+#session{position:absolute;top:0;right:0;padding:5px;}
+#session a{text-decoration:none;}
+#session a:hover{text-decoration:underline;}
+p#message{background-color:#fcf3d5;border:1px dotted #aba071;padding:5px;font-size:0.6em;text-align:center;height:25px; line-height:25px;vertical-align:middle;}
+p#message.error{background-color:#fcb8bb;border-color:#d2001a;}
+p#message.completed{background-color:#b8fcbb;border-color:#00d21a;}
+
+ol.recent_videos{list-style:none;padding-left:10px;}
+ol.recent_videos li{height:45px;}
+ol.recent_videos li strong{display:block;}
+ol.recent_videos li time{font-size:0.8em;}
+img.poster{height:40px;float:left;padding-right:4px;}

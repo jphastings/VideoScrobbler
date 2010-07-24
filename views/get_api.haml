@@ -1,0 +1,27 @@
+%h2 Your API keys
+-if session[:autheduser].api_keys.count < 1
+	%p You don't currently have any API keys to use.
+-else
+	%ul
+	-session[:autheduser].api_keys.each do |key|
+		%li="#{key.name} — #{key.api_key}"
+%h2 Create an API Key
+:markdown
+	Generating an API Key for yourself is currently restricted, you'll need a password from me to create one! Please (email me)[mailto:videoscrobbler@toys.byJP.me] with an outline of your idea (out of my own curiosity!) and I'll give you the password.
+
+%form{:method=>'get',:action=>'/action.json',:id=>'getapi'}
+	%fieldset
+		%legend Get an API key
+
+		%p#message Make sure you're descriptive, I'm interested to see how this is being used!
+
+		%label{:for=>'password'}Password
+		%input{:type=>'password',:name=>'password',:id=>'password'}
+
+		%label{:for=>'appname'}Application Name
+		%input{:type=>'text',:name=>'appname',:id=>'appname'}
+
+		%label{:for=>'description'}Description
+		%textarea{:name=>'description'}
+
+		%input{:type=>'submit',:value=>'Change password',:id=>'submit'}

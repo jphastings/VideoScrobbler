@@ -1,0 +1,25 @@
+-@javascript.push 'chroma-hash','login_signup'
+%form{:method=>'get',:action=>'/action.json',:id=>'auth'}
+	%fieldset
+		%legend Log In / Sign Up
+		%div
+			%label{:for=>'chooselogin'}Log In
+			%input{:type=>'radio',:name=>'action',:value=>'login',:id=>'chooselogin'}
+			%label{:for=>'choosesignup'}Sign Up
+			%input{:type=>'radio',:name=>'action',:value=>'signup',:id=>'choosesignup'}
+		
+		%p#message It's one form, but you can sign up or log in with it! Astonishing.
+		
+		%label{:for=>'username'}Username
+		%input{:type=>'text',:name=>'username',:id=>'username'}
+	
+		%label{:for=>'email',:class=>'signup prehide'}Email
+		%input{:type=>'text',:name=>'email',:id=>'email',:class=>'signup prehide'}
+	
+		%label{:for=>'password'}Password
+		%input{:type=>'password',:name=>'password',:id=>'password'}
+	
+		%label{:for=>'confirm-password',:class=>'signup prehide'}Confirm Password
+		%input{:type=>'password',:name=>'confirm-password',:id=>'confirm-password',:class=>'signup prehide'}
+		
+		%input{:type=>'submit',:value=>'Log In',:id=>'submit'}
