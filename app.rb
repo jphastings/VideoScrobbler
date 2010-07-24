@@ -3,7 +3,6 @@ require 'sinatra'
 require 'haml'
 require 'yaml'
 require 'db'
-require 'pp'
 
 enable :sessions
 
