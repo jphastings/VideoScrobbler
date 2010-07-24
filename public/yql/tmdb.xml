@@ -6,7 +6,7 @@
     <author>Peter Cowburn &amp; JP Hastings-Spital</author>
   </meta>
   <bindings>
-    <select itemPath="movie" produces="XML">
+    <select itemPath="video" produces="XML">
       <inputs>
         <key id="movieid" type="xs:string" paramType="variable" required="true"/>
       </inputs>
@@ -27,8 +27,9 @@ var year = result.h3.text().toString();
 // The poster
 var poster = result.img.@['src'].toString();
 
-video.node += <title>{title} ({year})</title>;
+video.node += <title>{title} {year}</title>;
 video.node += <poster>{poster}</poster>
+video.node += <id>tmdb:{movieid}</id>
 
 response.object = video;
 ]]></execute>
