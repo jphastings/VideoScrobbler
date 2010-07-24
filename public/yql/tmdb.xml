@@ -3,7 +3,7 @@
   <meta>
     <sampleQuery>select * from {table} where movieid="27205"</sampleQuery>
     <description>Retrieve movie title and year from TMDB. See http://stackoverflow.com/questions/3292899/tailoring-the-output-of-yql</description>
-    <author>Peter Cowburn & JP Hastings-Spital</author>
+    <author>Peter Cowburn &amp; JP Hastings-Spital</author>
   </meta>
   <bindings>
     <select itemPath="movie" produces="XML">
