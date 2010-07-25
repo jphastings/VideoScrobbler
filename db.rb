@@ -44,7 +44,7 @@ class ApiKey < ActiveRecord::Base
   after_create :generate_keys
   
   def generate_keys
-    write_attribute(:key,UUID.new.generate(:compact))
+    write_attribute(:api_key,UUID.new.generate(:compact))
     write_attribute(:secret,UUID.new.generate(:compact))
   end
 end

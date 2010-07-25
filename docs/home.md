@@ -24,7 +24,7 @@ More advanced scrobblers have features like syncing video watching with your fri
 
 No really, I see code, how?
 ---------------------------
-1. Sign up and [get an api key](/api/auth).
+1. Sign up and [get an api key](/api/account).
 2. Take a peek at the [api docs](/api/docs).
 3. Use the [TMDB](http://api.themoviedb.org/2.1) and [TVDB](http://thetvdb.com/wiki/index.php?title=Programmers_API) to get an id for the episode or film. Alternatively for streaming video that *isn't* TV or a film a url will do[^urls].
 4. Use the [video.getInfo](/api/docs#video.getInfo) call to get the local id for the video (keep this local id in a cache somewhere).
