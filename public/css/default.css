@@ -3,7 +3,7 @@ form {font-size:1.5em;}
 .prehide {display:none;}
 fieldset{width:440px;margin:10px auto;border:none;}
 input{width:440px;font-size:1.5em;margin-bottom:0.75em;}
-textarea{width:440px;font-size:1.0em;margin-bottom:0.75em;}
+textarea{width:440px;font-size:0.8em;margin-bottom:0.75em;height:200px;}
 form div{width:440px;font-size:1.5em;margin-bottom:0.75em;}
 form div input{width:auto;}
 .container {width:480px;}
@@ -18,6 +18,6 @@ p#message.completed{background-color:#b8fcbb;border-color:#00d21a;}
 
 ol.recent_videos{list-style:none;padding-left:10px;}
 ol.recent_videos li{height:85px;}
-ol.recent_videos li strong{display:block;}
+ol.recent_videos li *{display:block;}
 ol.recent_videos li time{font-size:0.8em;}
-img.poster{height:80px;float:left;padding-right:4px;}
+img.poster{height:80px;float:left;padding-right:4px;width:54px;}

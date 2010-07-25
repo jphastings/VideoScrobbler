@@ -8,8 +8,10 @@
 			%script{:type=>'text/javascript',:src=>"/assets/#{js}.js"}
 		%script{:type=>'text/javascript',:src=>"/assets/site.js"}
 	%body
-		-unless locals[:noauth]
-			#session
+		#session
+			%a{:href=>'/'}home
+			-unless locals[:noauth]
+				|
 				-if session[:autheduser]
 					%a{:href=>"/users/#{session[:autheduser].username}"}=session[:autheduser].username
 					|

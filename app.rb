@@ -3,6 +3,7 @@ require 'sinatra'
 require 'haml'
 require 'yaml'
 require 'db'
+require 'api'
 
 enable :sessions
 
@@ -96,6 +97,12 @@ get '/action.json' do
     session[:autheduser].passhash = User.hash(params['password'])
     session[:autheduser].save
     {:action => :changepw, :status => :ok, :message => "Password changed"}
+  when 'get_api'
+    halt(401,{:error =>7,:message=>"Invalid Password"}.to_json) if params['password'] != ENV['API_PW']
+    halt(400,{:error =>7,:message=>"Details invalid"}.to_json) if params['appname'].empty? or params['description'].empty?
+    
+    session[:autheduser].api_keys.create(:app_name => params['appname'],:description => params['description']).save
+    {:action => :get_api, :status => :ok, :message => 'Generated API key'}
   else
     halt(400, "No such action")
   end.to_json
@@ -103,7 +110,6 @@ end
 
 # The API forwarder
 get '/api/1.0/' do
-  require 'api'
   
   begin
     VideoScrobblerApi.process(params)

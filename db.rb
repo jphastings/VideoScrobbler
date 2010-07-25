@@ -41,10 +41,11 @@ end
 class ApiKey < ActiveRecord::Base
   belongs_to :user
   has_many :session_keys
-  after_create :refresh_key
+  after_create :generate_keys
   
-  def refresh_key
+  def generate_keys
     write_attribute(:key,UUID.new.generate(:compact))
+    write_attribute(:secret,UUID.new.generate(:compact))
   end
 end
 

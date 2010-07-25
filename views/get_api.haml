@@ -1,17 +1,24 @@
+-@javascript.push 'get_api'
 %h2 Your API keys
 -if session[:autheduser].api_keys.count < 1
 	%p You don't currently have any API keys to use.
 -else
 	%ul
 	-session[:autheduser].api_keys.each do |key|
-		%li="#{key.name} — #{key.api_key}"
+		%li
+			%h4=key.app_name
+			%strong=key.api_key
+			%em=key.secret
+			%p=key.description
+			
 %h2 Create an API Key
 :markdown
-	Generating an API Key for yourself is currently restricted, you'll need a password from me to create one! Please (email me)[mailto:videoscrobbler@toys.byJP.me] with an outline of your idea (out of my own curiosity!) and I'll give you the password.
+	Generating an API Key for yourself is currently restricted, you'll need a password from me to create one! Please [email me](mailto:videoscrobbler@toys.byJP.me) with an outline of your idea (out of my own curiosity!) and I'll give you the password.
 
 %form{:method=>'get',:action=>'/action.json',:id=>'getapi'}
 	%fieldset
 		%legend Get an API key
+		%input{:type=>'hidden',:name=>'action',:value=>'get_api'}
 
 		%p#message Make sure you're descriptive, I'm interested to see how this is being used!
 
@@ -22,6 +29,6 @@
 		%input{:type=>'text',:name=>'appname',:id=>'appname'}
 
 		%label{:for=>'description'}Description
-		%textarea{:name=>'description'}
+		%textarea{:name=>'description',:id=>'description'}
 
-		%input{:type=>'submit',:value=>'Change password',:id=>'submit'}
+		%input{:type=>'submit',:value=>'Apply for an API key',:id=>'submit'}
