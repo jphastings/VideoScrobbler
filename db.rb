@@ -1,9 +1,9 @@
 require 'active_record'
 require 'digest/md5'
+require 'digest/sha1'
 require 'time'
-require 'uuid'
 
-ActiveRecord::Base.establish_connection(YAML::load(File.open('config/database.yml'))[ENV['ENVIRONMENT'] || 'production'])
+ActiveRecord::Base.establish_connection(YAML::load(File.open('config/database.yml'))[ENV['ENVIRONMENT'] || 'development'])
 
 class User < ActiveRecord::Base
   has_many :api_keys
@@ -44,8 +44,8 @@ class ApiKey < ActiveRecord::Base
   after_create :generate_keys
   
   def generate_keys
-    write_attribute(:api_key,UUID.new.generate(:compact))
-    write_attribute(:secret,UUID.new.generate(:compact))
+    write_attribute(:api_key,Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f.to_s + 'salty!' + rand(10**10).to_s))
+    write_attribute(:secret, Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f.to_s + 'peppery?' + rand(10**10).to_s))
   end
 end
 
@@ -54,7 +54,7 @@ class SessionKey < ActiveRecord::Base
   after_create :refresh_key
   
   def refresh_key
-    write_attribute(:key,UUID.new.generate(:compact))
+    write_attribute(:key,Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f + '~umame~' + rand(10**10).to_s))
   end
   
   def set_user(user)

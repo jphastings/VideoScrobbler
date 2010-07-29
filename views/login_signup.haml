@@ -22,4 +22,6 @@
 		%label{:for=>'confirm-password',:class=>'signup prehide'}Confirm Password
 		%input{:type=>'password',:name=>'confirm-password',:id=>'confirm-password',:class=>'signup prehide'}
 		
+		-if session[:backto]
+			%input{:type=>'hidden',:name=>'next',:value=>session.delete(:backto),:id=>'next'}
 		%input{:type=>'submit',:value=>'Log In',:id=>'submit'}

@@ -24,7 +24,11 @@ $(document).ready(function() {
 			success: function(data) {
 				switch (data['action']) {
 					case 'login':
-						document.location.href = '/users/'+data['username']
+						if ($('#next').length != 0 && $('#next').val().substring(0,1) == '/') {
+							document.location.href = $('#next').val()
+						} else {
+							document.location.href = '/users/'+data['username']
+						}
 						break
 					case 'signup':
 						document.location.href = '/account'

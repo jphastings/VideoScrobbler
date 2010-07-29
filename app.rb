@@ -5,7 +5,7 @@ require 'yaml'
 require 'db'
 require 'api'
 
-enable :sessions
+use Rack::Session::Pool
 
 before do
   @javascript = []
@@ -23,6 +23,13 @@ helpers do
       remote_id
     end
   end
+  
+  def req_auth
+    if session[:autheduser].nil?
+      session[:backto] = request.fullpath
+      redirect('/auth#login')
+    end
+  end
 end
 
 ## Static pages
@@ -31,12 +38,13 @@ get '/' do
 end
 
 get '/account' do
-  halt(401,{:error =>7,:message=>"Not authenticated"}) if session[:autheduser].nil?
+  req_auth
   haml :account
 end
 
 #### Authentication
 get '/auth' do
+  #session.destroy
   haml :login_signup, :locals => {:noauth => true}
 end
 
@@ -46,11 +54,13 @@ get '/logout' do; redirect '/auth'; end
 
 # User-facing HTML that allows them to accept that an application will have private access to their data
 get '/api/auth' do
+  req_auth
   haml :allow_access
 end
 
 # Allows people to sign up for API accounts
 get '/api/account' do
+  req_auth
   haml :get_api
 end
 
@@ -75,6 +85,8 @@ get '/action.json' do
       halt(401,{:error =>7,:message=>"Invalid Password"})
     else
       # TODO: Redirect to /user/:username as well as returning this?
+      # TODO: test the 'next' param, and redirect there instead if appropriate
+      response['Location'] = (!params['next'].nil? and params['next'][0..0] == "/") ? params['next'] : "/users/#{session[:autheduser].username}"
       {:action => :login,:username=>session[:autheduser].username,:status => :ok}
     end
   when 'signup'
@@ -98,7 +110,8 @@ get '/action.json' do
     session[:autheduser].save
     {:action => :changepw, :status => :ok, :message => "Password changed"}
   when 'get_api'
-    halt(401,{:error =>7,:message=>"Invalid Password"}.to_json) if params['password'] != ENV['API_PW']
+    halt(401,{:error =>7,:message=>"Not authenticated"}.to_json) if session[:autheduser].nil?
+    halt(401,{:error =>7,:message=>"Invalid Password"}.to_json) if params['apipassword'] != ENV['API_PW']
     halt(400,{:error =>7,:message=>"Details invalid"}.to_json) if params['appname'].empty? or params['description'].empty?
     
     session[:autheduser].api_keys.create(:app_name => params['appname'],:description => params['description']).save

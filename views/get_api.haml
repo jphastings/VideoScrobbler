@@ -7,7 +7,10 @@
 	-session[:autheduser].api_keys.each do |key|
 		%li
 			%h4=key.app_name
-			%strong=key.api_key
+			%strong Api Key:
+			%em=key.api_key
+			%br
+			%strong Secret Key:
 			%em=key.secret
 			%p=key.description
 			
@@ -22,8 +25,8 @@
 
 		%p#message Make sure you're descriptive, I'm interested to see how this is being used!
 
-		%label{:for=>'password'}Password
-		%input{:type=>'password',:name=>'password',:id=>'password'}
+		%label{:for=>'apipassword'}Password
+		%input{:type=>'password',:name=>'apipassword',:id=>'apipassword'}
 
 		%label{:for=>'appname'}Application Name
 		%input{:type=>'text',:name=>'appname',:id=>'appname'}
