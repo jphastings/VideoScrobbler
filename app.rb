@@ -43,7 +43,7 @@ get '/account' do
 end
 
 #### Authentication
-get '/auth' do
+get '/auth' do 
   #session.destroy
   haml :login_signup, :locals => {:noauth => true}
 end
@@ -55,6 +55,7 @@ get '/logout' do; redirect '/auth'; end
 # User-facing HTML that allows them to accept that an application will have private access to their data
 get '/api/auth' do
   req_auth
+  
   haml :allow_access
 end
 
@@ -116,8 +117,12 @@ get '/action.json' do
     
     session[:autheduser].api_keys.create(:app_name => params['appname'],:description => params['description']).save
     {:action => :get_api, :status => :ok, :message => 'Generated API key'}
+  when 'allow_session'
+    halt(401,{:error =>7,:message=>"Not authenticated"}.to_json) if session[:autheduser].nil?
+    # TODO: do this!
+    {:action => :allow_session, :status => :ok, :message => 'Allowed Session Key'}
   else
-    halt(400, "No such action")
+    halt(400, {:error =>7,:message=>"No such action"}.to_json)
   end.to_json
 end
 
