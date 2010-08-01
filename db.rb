@@ -46,6 +46,7 @@ class ApiKey < ActiveRecord::Base
   def generate_keys
     write_attribute(:api_key,Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f.to_s + 'salty!' + rand(10**10).to_s))
     write_attribute(:secret, Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f.to_s + 'peppery?' + rand(10**10).to_s))
+    self.save
   end
 end
 
@@ -55,6 +56,7 @@ class SessionKey < ActiveRecord::Base
   
   def refresh_key
     write_attribute(:key,Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f + '~umame~' + rand(10**10).to_s))
+    self.save
   end
   
   def set_user(user)
