@@ -11,3 +11,4 @@
 				%strong=entry.video.remote_id
 				%time{:datetime=>entry.updated_at.iso8601,:class=>'timeago'}=entry.updated_at.strftime('%Y-%m-%d')
 				%img{:src=>"/images/state_#{entry.state}.png",:title=>VideoScrobblerApi::Video::States[entry.state]}
+				%em=entry.position

@@ -205,7 +205,7 @@ class VideoScrobblerApi
         :position => entry.position,
         :state => self::States[entry.state],
         :origin => entry.origin,
-        :at => entry.updated_at,
+        :at => entry.updated_at.to_i,
         :continued => !fresh
       }
     end
