@@ -41,6 +41,7 @@ end
 class ApiKey < ActiveRecord::Base
   belongs_to :user
   has_many :session_keys
+  has_many :tokens
   after_create :generate_keys
   
   def generate_keys
@@ -52,11 +53,24 @@ end
 
 class SessionKey < ActiveRecord::Base
   belongs_to :api_key
-  after_create :refresh_key
+  before_create :generate_key
   
-  def refresh_key
-    write_attribute(:key,Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f + '~umame~' + rand(10**10).to_s))
-    self.save
+  def generate_key
+    write_attribute(:key,Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f.to_s + 'ILoveAGoodBitter' + rand(10**10).to_s))
+  end
+  
+  def user
+    return nil if read_attribute(:user_id).nil?
+    User.find_by_id(read_attribute(:user_id))
+  end
+end
+
+class Token < ActiveRecord::Base
+  belongs_to :api_key
+  before_create :generate_key
+  
+  def generate_key
+    write_attribute(:key,Digest::SHA1.hexdigest(rand(10**10).to_s + Time.now.to_f.to_s + '~umame~' + rand(10**10).to_s))
   end
   
   def set_user(user)

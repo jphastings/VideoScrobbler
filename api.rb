@@ -6,7 +6,7 @@ class VideoScrobblerApi
   def self.process(params)
     #raise InvalidParameters, "The request is missing parameters" if !params.include?([:api_key]) or !params.include?([:api_sig]) or !params.include?([:method]) or (!params.include?([:sk]) and !['auth.getToken','auth.getSession'].inlude?(params[:method]))
     sig = params.delete('api_sig')
-    p params
+    
     api = ApiKey.find_by_api_key(params['api_key'])
     raise InvalidAPIKey if api.nil?
     raise InvalidSignature if sig != Digest::MD5.hexdigest(params.sort.flatten.join()+api.secret)
@@ -16,7 +16,7 @@ class VideoScrobblerApi
     method = params.delete('method').split(".")
   
     if method[0].downcase != 'auth'
-      session = SessionKey.find_by_api_key_id_and_key_and_is_token(params[:api].id,params.delete('sk'),false)
+      session = SessionKey.find_by_api_key_id_and_key(params[:api].id,params.delete('sk'))
       raise InvalidSessionKey, "This session key isn't valid" if session.nil?
       params[:autheduser] = session.user
     else
@@ -70,21 +70,21 @@ class VideoScrobblerApi
   # The Authentication methods
   class Auth
     def self.getToken(params)
-      token = params[:api].session_keys.create
-      token.refresh_key
-      token.save
+      token = params[:api].tokens.create
       {:token => token.key}
     end
     
     def self.getSession(params)
-      key = SessionKey.find_by_api_key_id_and_key_and_is_token(params[:api].id,params['token'],true)
-      raise InvalidResource, "This token isn't valid" if key.nil?
-      key.is_token = false
-      key.refresh_key
-      key.save
+      token = Token.find_by_api_key_id_and_key(params[:api].id,params['token'])
+      raise(InvalidResource, "This token isn't valid") if token.nil?
+      raise(NotAuthenticated, "This token has not been accepted yet") if token.user_id.nil?
+      sk = params[:api].session_keys.create
+      sk.user_id = token.user_id
+      sk.save
+      token.delete
       {
-        :sk => key.key,
-        :user => (key.user.username rescue nil)
+        :sk => sk.key,
+        :user => sk.user.username
       }
     end
   end

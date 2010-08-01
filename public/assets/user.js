@@ -53,12 +53,17 @@ function getFromYQL(remote_id) {
 	}
 	
 	$.getJSON(url,function(data){
-		if (window.openDatabase) {
-			db.transaction(function (transaction) {
-				transaction.executeSql("INSERT INTO VSids(id, poster, title) VALUES (?, ?, ?)", [data.query.results.video['id'], data.query.results.video['poster'], data.query.results.video['title']]);  
-		    });
+		try {
+			if (window.openDatabase) {
+				db.transaction(function (transaction) {
+					transaction.executeSql("INSERT INTO VSids(id, poster, title) VALUES (?, ?, ?)", [data.query.results.video['id'], data.query.results.video['poster'], data.query.results.video['title']]);  
+			    });
+			}		
+		
+			addMetadata(data.query.results.video)
+		} catch(e) {
+			console.log("No results for "+remote_id)
 		}
-		addMetadata(data.query.results.video)
 	})
 }
 

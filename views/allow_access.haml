@@ -1,6 +1,6 @@
-%h1="#{session[:app].api_key.app_name} would like access to your Account"
+%h1="#{session[:token].api_key.app_name} would like access to your Account"
 :markdown
 	You must be certain that you wish for them to be able to scrobble to your account, modify your friends and so on.
 	
-%a{:href=>"/action.json?token=#{params['token']}&action=allo_wapi"}Allow Access
+%a{:href=>"/action.json?token=#{params['token']}&action=allow_api"}Allow Access
 %a{:href=>"/action.json?token=#{params['token']}&action=deny_api"}Deny Access

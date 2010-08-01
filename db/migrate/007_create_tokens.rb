@@ -1,8 +1,8 @@
-class CreateSessionKeys < ActiveRecord::Migration
+class CreateTokens < ActiveRecord::Migration
   def self.up
-    create_table :session_keys do |table|
+    create_table :tokens do |table|
       table.integer :api_key_id
-      table.string  :user_id
+      table.string  :user_id,:default => nil
       table.string  :key
       
       table.datetime :created_at
@@ -10,6 +10,6 @@ class CreateSessionKeys < ActiveRecord::Migration
   end
   
   def self.down
-    drop_table :session_keys
+    drop_table :tokens
   end
 end
