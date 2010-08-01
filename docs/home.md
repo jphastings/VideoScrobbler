@@ -27,6 +27,7 @@ How can I build a scrobbler?
 3. Use the [TMDB](http://api.themoviedb.org/2.1) and [TVDB](http://thetvdb.com/wiki/index.php?title=Programmers_API) to get an id for the episode or film. Alternatively for streaming video that *isn't* TV or a film a url will do[^urls].
 4. Use the [video.getInfo](/api/docs#video.getInfo) call to get the local id for the video (keep this local id in a cache somewhere).
 5. As the user plays the video update [video.scrobble](/api/docs#video.scrobble) with the position, state (playing, paused, stopped, finished) and origin (ie. DVD, tv:uk:bbc1west — these need to be uniform across scrobblers please [look here](/api/docs#origin))
-6. Be awesome.
+6. Check out my [demo scrobbler](http://gist.github.com/503240) and see if it's helpful!
+7. Be awesome.
 
 [^urls]: Please use the canonical form of the url, most video sites have a &lt;meta name="canonical"> tag which is the one you should use, this way there will only ever be one item in our database for each webstream. More info in the [api docs](/api/docs#remote_ids).

@@ -1,5 +1,4 @@
 sinatra
 activerecord
 haml
-uuid
 maruku
