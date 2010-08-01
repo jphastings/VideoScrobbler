@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<table xmlns="http://query.yahooapis.com/v1/schema/table.xsd" https="false">
+<meta>
+    <author>JP Hastings-Spital</author>
+    <description>Try and grab info about a video at a URL</description>
+    <sampleQuery>select * from {table} where url='http://vimeo.com/12819723'</sampleQuery>
+</meta>
+<bindings>
+    <select itemPath="" produces="XML">
+        <inputs>
+			<key type="xs:string" paramType="path" id="url" />
+		</inputs>
+      <execute><![CDATA[
+var query = 'select * from html where url="'+url+'" and xpath=\'//meta[@name="title"]|//head/title|//link[@rel="videothumbnail"]\'';
+
+var result = y.query(query).results;
+
+var video = <video/>;
+
+var title = result.meta.@['content'].toString();
+if (title == null) {
+	title = result.title.toString();
+}
+
+// The poster
+var poster = result.link.@['href'].toString();
+
+video.node += <title>{title}</title>;
+video.node += <poster>{poster}</poster>
+video.node += <id>{url}</id>
+
+response.object = video;
+]]></execute>
+    </select>
+  </bindings>
+</table>

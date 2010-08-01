@@ -6,6 +6,7 @@ class VideoScrobblerApi
   def self.process(params)
     #raise InvalidParameters, "The request is missing parameters" if !params.include?([:api_key]) or !params.include?([:api_sig]) or !params.include?([:method]) or (!params.include?([:sk]) and !['auth.getToken','auth.getSession'].inlude?(params[:method]))
     sig = params.delete('api_sig')
+    p params
     api = ApiKey.find_by_api_key(params['api_key'])
     raise InvalidAPIKey if api.nil?
     raise InvalidSignature if sig != Digest::MD5.hexdigest(params.sort.flatten.join()+api.secret)
@@ -106,7 +107,7 @@ class VideoScrobblerApi
       video = case params['id']
       when /^\d+$/
         ::Video.find_by_id(params['id'])
-      when /^([a-z]+):(\d+)$/
+      when /^([a-z]+):(.+)$/
         type = case $1
         when 'tvdb'
           "tv"

@@ -1,1 +1,6 @@
-%h1 An application wants to be able to Scrobble to your account
+%h1="#{session[:app].api_key.app_name} would like access to your Account"
+:markdown
+	You must be certain that you wish for them to be able to scrobble to your account, modify your friends and so on.
+	
+%a{:href=>"/action.json?token=#{params['token']}&action=allo_wapi"}Allow Access
+%a{:href=>"/action.json?token=#{params['token']}&action=deny_api"}Deny Access

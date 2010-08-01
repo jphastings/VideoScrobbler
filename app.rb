@@ -54,6 +54,10 @@ get '/logout' do; redirect '/auth'; end
 
 # User-facing HTML that allows them to accept that an application will have private access to their data
 get '/api/auth' do
+  apikey = ApiKey.find_by_api_key(params['api_key'])
+  halt(404) if apikey.nil?
+  session[:app] = SessionKey.find_by_api_key_id_and_key_and_is_token(apikey.id,params['token'],true)
+  halt(404) if session[:app].nil?
   req_auth
   
   haml :allow_access
@@ -121,6 +125,9 @@ get '/action.json' do
     halt(401,{:error =>7,:message=>"Not authenticated"}.to_json) if session[:autheduser].nil?
     # TODO: do this!
     {:action => :allow_session, :status => :ok, :message => 'Allowed Session Key'}
+  when 'allow_api'
+    halt(400, {:error =>7,:message=>"Invalid token"}.to_json) if session[:app].key != params['token']
+    # TODO: eeeep
   else
     halt(400, {:error =>7,:message=>"No such action"}.to_json)
   end.to_json
@@ -132,9 +139,10 @@ get '/api/1.0/' do
   begin
     VideoScrobblerApi.process(params)
   rescue VideoScrobblerApi::ApiError => e
+    #raise e
     halt(e.class::HTTP,{
       :error => e.class::Code,
       :message => e.message
-    })
+    }.to_json)
   end.to_json
 end
