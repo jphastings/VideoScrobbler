@@ -1,11 +1,12 @@
 -@javascript.push 'timeago.jquery','user'
 -perpage=5
+-#:limit=>[(page - 1)*perpage,perpage].join(',')
 %h1=user.username
 %h5
 	Member since
 	%time{:datetime=>user.created_at.iso8601,:class=>'timeago'}=user.created_at.strftime('%Y-%m-%d')
 %ol{:class=>'recent_videos'}
-	-LibraryEntry.find(:all,:conditions=>['user_id = ?',user.id],:order=>'updated_at DESC',:limit=>[(page - 1)*perpage,perpage].join(',')).each do |entry|
+	-LibraryEntry.find(:all,:conditions=>['user_id = ?',user.id],:order=>'updated_at DESC').each do |entry|
 		%a{:href=>get_url(entry.video.remote_id),:target=>'_new'}
 			%li{:class=>'video unknown',:rel=>entry.video.remote_id}
 				%img{:src=>'/assets/unknown.png',:class=>'poster'}
