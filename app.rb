@@ -139,7 +139,7 @@ get '/api/1.0/' do
   begin
     VideoScrobblerApi.process(params)
   rescue VideoScrobblerApi::ApiError => e
-    raise e
+    #raise e
     halt(e.class::HTTP,{
       :error => e.class::Code,
       :message => e.message
