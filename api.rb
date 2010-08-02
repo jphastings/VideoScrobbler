@@ -35,35 +35,35 @@ class VideoScrobblerApi
   class ApiError < RuntimeError
     Code = 8
     HTTP = 400
-    def message; "Server Error. Please try again later."; end
+    def initialize(msg="Server Error. Please try again later.");super; end
   end
   class InvalidParameters < ApiError
     Code = 6
-    def message; "Your request is missing a required parameter or a parameter is invalid"; end
+    def initialize(msg="Your request is missing a required parameter or a parameter is invalid");super; end
   end
   class InvalidAPIKey < ApiError
     Code = 10
-    def message; "This API Key is invalid"; end
+    def initialize(msg="This API Key is invalid");super; end
   end
   class InvalidSignature < ApiError
     Code = 13
-    def message; "Invalid method signature supplied"; end
+    def initialize(msg="Invalid method signature supplied");super; end
   end
   class InvalidSessionKey < ApiError
     Code = 9
-    def message; "Invalid session key"; end
+    def initialize(msg="Invalid session key");super; end
   end
   class InvalidResource < ApiError
     Code = 7
-    def message; "Invalid resource"; end
+    def initialize(msg="Invalid resource");super; end
   end
   class InvalidMethod < ApiError
     Code = 3
-    def message; "No method with that name in this package"; end
+    def initialize(msg="No method with that name in this package");super; end
   end
   class NotAuthenticated < ApiError
     Code = 4
-    def message; "You do not have permissions to access the service"; end
+    def initialize(msg="You do not have permissions to access the service");super; end
   end
   
   private
