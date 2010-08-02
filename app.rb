@@ -76,7 +76,7 @@ end
 get '/users/:username' do
   user = User.find_by_username(params[:username])
   halt(404,"User not found!") if user.nil?
-  haml :user, :locals => {:user => user}
+  haml :user, :locals => {:user => user,:page=>page=[params['page'].to_i,1].max}
 end
 
 

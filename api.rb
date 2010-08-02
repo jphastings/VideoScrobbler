@@ -137,8 +137,13 @@ class VideoScrobblerApi
         user = params[:autheduser] if params['username'].nil?
         if params[:autheduser].friends.include? user or params['username'].nil?
           recent = LibraryEntry.find(:first,:conditions => ['video_id = ? AND user_id = ?',video.id,user.id],:order => 'updated_at DESC')
+          
           data.merge!({
-            :user => {
+            :user => recent.nil? ? {
+              :username => user.username,
+              :loved => 0,
+              :plays => 0
+            } : {
               :username => user.username,
               :loved => LibraryEntry.count(:conditions => ['video_id = ? AND user_id = ? AND loved = ?',video.id,user.id,true]),
               :state => (recent.state rescue nil),
@@ -192,6 +197,7 @@ class VideoScrobblerApi
       # look for an unfinished instance of this video being watched, if one is found we'll continue changing it
       entry = LibraryEntry.find(:first,:conditions => ["user_id = ? AND video_id = ? AND origin = ? AND state != 'f'",params[:autheduser].id,params['id'],params['origin']], :order => "updated_at DESC")
       fresh = entry.nil?
+      
       if fresh
         entry = LibraryEntry.create(:user_id =>params[:autheduser].id,:video_id => params['id'])
         entry.start = params['position']
