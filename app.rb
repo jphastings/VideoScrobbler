@@ -44,7 +44,7 @@ end
 
 #### Authentication
 get '/auth' do 
-  #session.destroy
+  session.clear
   haml :login_signup, :locals => {:noauth => true}
 end
 
