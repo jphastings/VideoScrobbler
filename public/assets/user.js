@@ -17,6 +17,7 @@ function addMetadata(details) {
 	})
 	img.src = details['poster']
 	$('li[rel="'+details['id']+'"] strong').text(details['title'])
+	$('li[rel="'+details['id']+'"]').parent().attr('href',details['url'])
 }
 
 function tryGettingFromDB(remote_id) {
@@ -40,7 +41,7 @@ function getFromYQL(remote_id) {
 	var split = remote_id.split(':')
 	switch(split[0]) {
 		case 'tvdb':
-			var url = "http://query.yahooapis.com/v1/public/yql?q=use%20'http%3A%2F%2Fvideoscrobbler.heroku.com%2Fyql%2Ftvdb.xml'%20as%20tvdb%3B%20select%20*%20from%20tvdb%20where%20episodeid%3D"+split[1]+"%20and%20api_key%3D'E319EC33BBD28757'&format=json&callback=?"
+			var url = "http://query.yahooapis.com/v1/public/yql?q=use%20'http%3A%2F%2Fvideoscrobbler.heroku.com%2Fyql%2Ftvdb.xml%3Fd'%20as%20tvdb%3B%20select%20*%20from%20tvdb%20where%20episodeid%3D"+split[1]+"%20and%20api_key%3D'E319EC33BBD28757'&format=json&callback=?"
 			break
 		case 'tmdb':
 			var url = "http://query.yahooapis.com/v1/public/yql?q=use%20'http%3A%2F%2Fvideoscrobbler.heroku.com%2Fyql%2Ftmdb.xml'%20as%20tmdb%3B%20select%20*%20from%20tmdb%20where%20movieid%3D%22"+split[1]+"%22%3B&format=json&callback=?"
@@ -56,7 +57,7 @@ function getFromYQL(remote_id) {
 		try {
 			if (window.openDatabase) {
 				db.transaction(function (transaction) {
-					transaction.executeSql("INSERT INTO VSids(id, poster, title) VALUES (?, ?, ?)", [data.query.results.video['id'], data.query.results.video['poster'], data.query.results.video['title']]);  
+					transaction.executeSql("INSERT INTO VSids(id, poster, title,url) VALUES (?, ?, ?)", [data.query.results.video['id'], data.query.results.video['poster'], data.query.results.video['title'], data.query.results.video['url']]);  
 			    });
 			}		
 		
@@ -74,7 +75,7 @@ function initDatabase() {
 	        db = openDatabase('VideoScrobblerMetadata', '1.0','VideoScrobbler Tv and Film database', 100000);
 			
 			db.transaction(function (transaction) {  
-				transaction.executeSql('CREATE TABLE IF NOT EXISTS VSids(id VARCHAR(255) NOT NULL PRIMARY KEY, poster TEXT NOT NULL,title TEXT NOT NULL);', []);  
+				transaction.executeSql('CREATE TABLE IF NOT EXISTS VSids(id VARCHAR(255) NOT NULL PRIMARY KEY, poster TEXT NOT NULL,title TEXT NOT NULL,url TEXT NOT NULL);', []);  
 			});
 	    }
 	} catch(e) {
