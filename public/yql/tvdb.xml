@@ -19,7 +19,10 @@ var query = 'select * from xml where url="http://www.thetvdb.com/api/'+api_key+'
 
 var result = y.query(query).results;
 
-var posterq = 'select * from html where url="http://www.thetvdb.com/?tab=season&seriesid='+result.Data.Episode.seriesid.toString()+'&seasonid='+result.Data.Episode.seasonid.toString()+'" and xpath=\'//h1[text()="Season Banners"]/following-sibling::a[1]/img|//h1/a\'';
+var seriesid = result.Data.Episode.seriesid.toString();
+var seasonid = result.Data.Episode.seasonid.toString();
+
+var posterq = 'select * from html where url="http://www.thetvdb.com/?tab=season&seriesid='+seriesid+'&seasonid='+seasonid+'" and xpath=\'//h1[text()="Season Banners"]/following-sibling::a[1]/img|//h1/a\'';
 
 var posterres = y.query(posterq).results;
 
@@ -39,7 +42,7 @@ var poster = posterres.img.@['src'].toString();
 video.node += <title>{show} {season}x{episode}: {title}</title>;
 video.node += <poster>http://www.thetvdb.com{poster}</poster>
 video.node += <id>tvdb:{episodeid}</id>
-video.node += <url>http://www.thetvdb.com/?tab=episode&seriesid={result.Data.Episode.seriesid.toString()}&seasonid={result.Data.Episode.seasonid.toString()}&id={episodeid}</url>
+video.node += <url>http://www.thetvdb.com/?tab=episode&seriesid={seriesid}&seasonid={seasonid}&id={episodeid}</url>
 
 response.object = video;
 ]]></execute>
