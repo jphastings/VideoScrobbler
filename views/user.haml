@@ -11,6 +11,6 @@
 			%li{:class=>'video unknown',:rel=>entry.video.remote_id}
 				%img{:src=>'/assets/unknown.png',:class=>'poster'}
 				%strong=entry.video.remote_id
+				%img{:src=>"/images/state_#{entry.state}.png",:title=>VideoScrobblerApi::Video::States[entry.state],:class=>'state'}
 				%time{:datetime=>entry.updated_at.iso8601,:class=>'timeago'}=entry.updated_at.strftime('%Y-%m-%d')
-				%img{:src=>"/images/state_#{entry.state}.png",:title=>VideoScrobblerApi::Video::States[entry.state]}
-				%em=entry.position
+				-#%em=entry.position
