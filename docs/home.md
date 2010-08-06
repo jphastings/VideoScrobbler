@@ -17,6 +17,10 @@ This website simply keeps track of what TV, Film and online video you watch. Tha
 
 On a side note, this is a proof-of-concept site. I hope I'll be able to make it efficient, secure and pretty but right now I'm pretty sure it's none of those things. If you want to help, it's all written in ruby (with sinatra) and haml, you can see the source code on [github](http://github.com/jphastings/videoScrobbler). Feel free to fork & improve it!
 
+What?!
+------
+Okay okay, here's a quick [demo video](http://vimeo.com/13946064) showing you how I use my own [demo scrobbler](http://gist.github.com/503240) to keep track of what [I'm watching](/users/jphastings).
+
 ### Your computer
 Your computer (or any website that supports VideoScrobbling) runs a scrobbler which keeps a beady eye on all the video that you watch, letting this server know what you're watching.
 
