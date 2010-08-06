@@ -39,10 +39,12 @@ if (episode.length < 2) {
 // The poster
 var poster = posterres.img.@['src'].toString();
 
+var url = "http://www.thetvdb.com/?tab=episode&seriesid="+seriesid+"&seasonid="+seasonid+"&id="+episodeid
+
 video.node += <title>{show} {season}x{episode}: {title}</title>;
 video.node += <poster>http://www.thetvdb.com{poster}</poster>
 video.node += <id>tvdb:{episodeid}</id>
-video.node += <url>http://www.thetvdb.com/?tab=episode&amp;seriesid={seriesid}&amp;seasonid={seasonid}&amp;id={episodeid}</url>
+video.node += <url>{url}</url>
 
 response.object = video;
 ]]></execute>
