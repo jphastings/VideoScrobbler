@@ -42,7 +42,7 @@ var poster = posterres.img.@['src'].toString();
 video.node += <title>{show} {season}x{episode}: {title}</title>;
 video.node += <poster>http://www.thetvdb.com{poster}</poster>
 video.node += <id>tvdb:{episodeid}</id>
-video.node += <url>http://www.thetvdb.com/?tab=episode&seriesid={seriesid}&seasonid={seasonid}&id={episodeid}</url>
+video.node += <url>http://www.thetvdb.com/?tab=episode&amp;seriesid={seriesid}&amp;seasonid={seasonid}&amp;id={episodeid}</url>
 
 response.object = video;
 ]]></execute>
