@@ -21,3 +21,4 @@ ol.recent_videos li{height:85px;}
 ol.recent_videos li *{display:block;}
 ol.recent_videos li time{font-size:0.8em;}
 img.poster{height:80px;float:left;padding-right:4px;width:54px;}
+a img { border:0; }
